@@ -1,9 +1,26 @@
-// app/notes/filter/@sidebar/default.tsx
+import { NoteTag } from "@/types/note";
+import css from "./SidebarNotes.module.css";
+import Link from "next/link";
 
-import SidebarNotes from '@/components/SidebarNotes/SidebarNotes';
+const TagsMenu = () => {
+  const noteTags = Object.values(NoteTag);
 
-const NotesSidebar = async () => {
-  return <SidebarNotes />;
+  return (
+    <ul className={css.menuList}>
+      <li className={css.menuItem}>
+        <Link className={css.menuLink} href={"/notes/filter/All"}>
+          All notes
+        </Link>
+      </li>
+      {noteTags.map((tag) => (
+        <li key={tag} className={css.menuItem}>
+          <Link className={css.menuLink} href={`/notes/filter/${tag}`}>
+            {tag}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
-export default NotesSidebar;
+export default TagsMenu;
